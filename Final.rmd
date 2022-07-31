@@ -86,7 +86,7 @@ confIntUpper = round(confIntUpper)
 The lower confidence value is 63. The upper confidence value is 73. The avergae effectiveness for male is 68%. Since tha value is higher than 50% this proves the alternative hypothesis more. 
 
 
-### Summary
+### Summary Male
 
 Males are dependent on the vaccine. The placebo had similar results to the vaccine but not exactly and not always. The vaccine for males is 68% effective. The null hypothesis is rejected since all the p-valus in the tests were below 0.05. So when a male takes the vaccine their chance of preventing the virus is greater than  those not taking it. Males should take the vaccine from these results.
 
@@ -106,6 +106,43 @@ barchartGC(~infected + treatment, data = Female, type = "percent")
 ```
 
 From both graphs, females that take the vaccine have a lesser chance of getting the virus. Frequency graph shows those with the vaccine at a very low frequency for getting the virus. The percentage graph shows that those with the vaccine had a lesser chance than those without the vaccine or instead with the placebo. The vaccine seems to help Females.
+
+
+### Numerical Descriptive Results
+```{r}
+table2 <- xtabs(~infected + treatment, data = Female)
+rowPerc(table2)
+colPerc(table2)
+```
+Females with the vaccine are less likely to get the virus. They have a 41% chance of getting the disease with the vaccine. The placebo has a 58.89% chance. And those without either have 49 and up percentages. The vaccine does give a better chance for females to prevent any contamination. 
+
+
+### Inferential Descriptive Results 
+```{r}
+chisq.test(table2)
+chisqtestGC(table2)
+fisher.test(table2)
+```
+Chi-squared test has a p-value of 0.0011. This is less than 0.05 so the null hypothesis must be rejected in favor of the alternative. The chi-squared statistic is 10.653 while the degrees of freedom is 1. The fisher exact test also has a p-value that is less than 0.05 which is 0.0009484. Odds ratio is 1.4 which is not equal to 1 so the alternative hypothesis is true. 
+
+
+### Effictiveness and Confidence Intervals
+
+```{r}
+efficFemale = 1.43/(1.43 + 1)*100
+efficFemale = round(efficFemale)
+confIntLower = 1.15/(1.15 + 1) * 100 
+confIntLower = round(confIntLower)
+confIntUpper = 1.78/(1.78 + 1 ) * 100 
+confIntUpper = round(confIntUpper)
+```
+
+The efficacy value for Female is 59%. This value is higher than 50% so the vaccine is effective for females. If the percentage is higher than 50% it proves that the variable iss effective towards the other. 
+
+
+### Summary Female
+
+The vaccine does correlate with Female. The p-values from the analysis and test are all less than 0.05. The null hypothesis is rejected in favor of the alternative. Females that have the vaccine have a greater chance at preventing the virus. Females should take the vaccine from this analysis.
 
 
 ## LGBTQ
