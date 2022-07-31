@@ -18,8 +18,8 @@ FinalDat <-read.csv(file="final_Data.csv",header=TRUE)
 FinalData <- FinalDat  %>% select(-one_of("X"))
 FinalData <- FinalData %>%
 mutate(across(where(is.character), as.factor))
-Males = filter(FinalData, sex == "M")
-Females = filter(FinalData, sex == "F")
+Male = filter(FinalData, sex == "M")
+Female = filter(FinalData, sex == "F")
 LGBTQ  = filter(FinalData, LGBTQ == "gay")
 DrugUser = filter(FinalData, DrugUser == "yes")
 ```
@@ -28,22 +28,75 @@ DrugUser = filter(FinalData, DrugUser == "yes")
 
 A new  preventative vaccine (covid91) is under test in clinical trials. Given the nature of this vaccine it is suspected that the drug may exhibit different effectiveness across the variety of subpopulations tracked. Consider population subgroups by gender( guys and gals), drug use, and sexual orientation. Write a complete report that separately considers this drug for each subgroup and your recommendations as to whether people in the subgroup should take the vaccine. Structure your report in four sections each devoted to one of the four subgroups, use null and alternative hypothesis statements and correct statistical verbage when referencing p-values in conclusions.
 
-## Hypothesis
+## Hypothesis & Method
 
-$H_0$: There is no difference between how effective the vaccine is for whichever sub-group uses it. The values are independent
+$H_0$: There is no difference between how effective the vaccine is for whichever sub-group uses it compared to the placebo. The values are independent
 
-$H_A$: There is a difference between how effective the vaccine is for whichever sub-group uses it. The values are dependent
-
-
-## Males
+$H_A$: There is a difference between how effective the vaccine is for whichever sub-group uses it compared to the placebo. The values are dependent
 
 
-## Females
+Both variables are categorical. CAT~CAT is used for all different sub groups. Each group will have its own answer as to whether there is a difference or not. Each analysis will have a bar chart, chi-squared test and fisher exact test. Along with a brief summary for each sub group, the final conclusion will put together everything i evaluated and the hypothesis will be answered which is are the variables independent or dependent of each other.  
+
+
+## Male
+
+$H_0$: There is no relation between males & the vaccine.
+
+$H_A$: There is a relation between males & the vaccine.
+
+
+### Graphical Descriptive Results
+```{r}
+barchartGC(~infected + treatment, data = Male)
+barchartGC(~infected + treatment, data = Male, type = "percent")
+```
+
+The frequency chart shows that those that took the placebo or vaccine had very little frequency of getting the virus. Those Males without either have gotten the virus at a much higher rate. The percentage chart also shows that those with the vaccine have a lesser chance to get the virus. Meanwhile the placebo while still shown as a low frequency , the virus is more stronger against the placebo than the vaccine in Males. 
+
+### Numerical Descriptive Results
+```{r}
+table1 <- xtabs(~infected + treatment, data = Male)
+rowPerc(table1)
+colPerc(table1)
+```
+
+Those Males with the placebo can get more infected than those with the vaccine. The vaccine has a less percentage chance of getting the virus than the placebo. Those infected either have the placebo or nothing at all. The vaccine does work for Males. 
+
+### Inferential Descriptive Results 
+```{r}
+chisq.test(table1)
+chisqtestGC(table1)
+fisher.test(table1)
+```
+
+The null hypothesis has to be rejected since the chi-squared test states that the p-value is 0.00000000004812. This p-value is less than 0.05. Chi-squared tests shows a statistic of 43.25 with degrees of freedom as 1. P-value for the chi-squared test is 0. Fisher exact test shows the p-value as 0.00000000002645. All the p-values are less than 0.05 so the null hypothesis is rejected in favor of the alternative. There is a relation between Males and the vaccine/placebo.
+
+
+### Effictiveness and Confidence Intervals
+
+```{r}
+efficMale = 2.09/(2.09 + 1)*100
+efficMale = round(efficMale)
+confIntLower = 1.67/(1.67+1) * 100 
+confIntLower = round(confIntLower)
+confIntUpper = 2.64/(2.64 + 1 ) * 100 
+confIntUpper = round(confIntUpper)
+```
+
+The lower confidence value is 63. The upper confidence value is 73. The avergae effectiveness for male is 68%. Since tha value is higher than 50% this proves the alternative hypothesis more. 
+
+
+### Summary
+
+Males are dependent on the vaccine. The placebo had similar results to the vaccine but not exactly and not always. The vaccine for males is 68% effective. The null hypothesis is rejected since all the p-valus in the tests were below 0.05. So when a male takes the vaccine their chance of preventing the virus is greater than  those not taking it. Males should take the vaccine from these results.
+
+
+## Female
 
 
 ## LGBTQ
 
 
 
-## Druggies
+## DrugUser
 
