@@ -93,6 +93,20 @@ Males are dependent on the vaccine. The placebo had similar results to the vacci
 
 ## Female
 
+$H_0$: There is no relation between females & the vaccine.
+
+$H_A$: There is a relation between females & the vaccine.
+
+
+### Graphical Descriptive Results
+
+```{r}
+barchartGC(~infected + treatment, data = Female)
+barchartGC(~infected + treatment, data = Female, type = "percent")
+```
+
+From both graphs, females that take the vaccine have a lesser chance of getting the virus. Frequency graph shows those with the vaccine at a very low frequency for getting the virus. The percentage graph shows that those with the vaccine had a lesser chance than those without the vaccine or instead with the placebo. The vaccine seems to help Females.
+
 
 ## LGBTQ
 
