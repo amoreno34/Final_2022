@@ -35,7 +35,7 @@ $H_0$: There is no difference between how effective the vaccine is for whichever
 $H_A$: There is a difference between how effective the vaccine is for whichever sub-group uses it compared to the placebo. The values are dependent
 
 
-Both variables are categorical. CAT~CAT is used for all different sub groups. Each group will have its own answer as to whether there is a difference or not. Each analysis will have a bar chart, chi-squared test and fisher exact test. Along with a brief summary for each sub group, the final conclusion will put together everything i evaluated and the hypothesis will be answered which is are the variables independent or dependent of each other.  
+Both variables are categorical. CAT~CAT is used for all different sub groups. Each group will have its own answer as to whether there is a difference or not. Each analysis will have a bar chart, chi-squared test and fisher exact test. Along with a brief summary for each sub group, the final conclusion will put together everything i evaluated and the hypothesis will be answered which is are the variables independent or dependent of each other. I will have similar hypothesis under each sub group to better anaylze my findings.
 
 
 ## Male
@@ -146,6 +146,59 @@ The vaccine does correlate with Female. The p-values from the analysis and test 
 
 
 ## LGBTQ
+
+$H_0$: There is no relation between LGBTQ+ members & the vaccine.
+
+$H_A$: There is a correlation between LGBTQ+ members & the vaccine.
+
+
+### Graphical Descriptive Results 
+
+```{r}
+barchartGC(~infected + treatment, data = LGBTQ)
+barchartGC(~infected + treatment, data = LGBTQ, type = "percent")
+```
+
+
+Those in this category that do take the vaccine seem to contract the virus more. The placebo is less likely to contract. The vaccine does not help the LGBTQ. The placebo helps more in this situation.
+
+### Numerical Descriptive Results
+```{r}
+table3 <- xtabs(~infected + treatment, data = LGBTQ)
+rowPerc(table3)
+colPerc(table3)
+```
+
+Looking at the top table, those LGBTQ that take the vaccine have a 86% chance of getting the virus. While only 13% have a chance of getting it with the placebo. Those in this group are more likely to get infected if they have the vaccine.
+
+
+### Inferential Descriptive Results
+```{r}
+chisq.test(table3)
+chisqtestGC(table3)
+fisher.test(table3)
+```
+
+Chi-squared test has a p-value of 0.0000000132, a statistic of 32.302, and degrees of freedom of 1. P-value is less than 0.05. Fisher exact test has a p-value of 0.000000001642. This value is also less than 0.05. Alternative hypothesis is true since the odds ratio is 0.146 which is not equal to 1. Odds ratio has to 1 to 1 for the null to be true. In this case, being LGBTQ means that it does affect how the vaccine performs. 
+
+
+### Effictiveness and Confidence Intervals
+
+```{r}
+efficLGBTQ = .15/(.15 + 1)*100
+efficLGBTQ = round(efficLGBTQ)
+confIntLower = .06/(.06 + 1) * 100 
+confIntLower = round(confIntLower)
+confIntUpper = .31/(.31 + 1 ) * 100 
+confIntUpper = round(confIntUpper)
+```
+
+Efficacy value for LGBTQ is 13%. The vaccine is not effective well enough to prevent the virus for this subgroup. Since the value is less than 50, so the alternative hypothesis is accepted while the null is rejected. 
+
+
+### Summary LGBTQ
+
+From the analysis, those who identify as LGBTQ and take the vaccine do have a higher chance of getting infected still. The placebo seems to work better in this case. Being LGBTQ does affect the effectiveness of the vaccine so the null hypothesis is rejected for the alternative hypothesis. Since all p-values are below 0.05. The effectiveness for LGBTQ is not great. Those in this group should not take the vaccine and instead the placebo. 
 
 
 
