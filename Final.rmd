@@ -83,7 +83,7 @@ confIntUpper = 2.64/(2.64 + 1 ) * 100
 confIntUpper = round(confIntUpper)
 ```
 
-The lower confidence value is 63. The upper confidence value is 73. The avergae effectiveness for male is 68%. Since tha value is higher than 50% this proves the alternative hypothesis more. 
+The lower confidence value is 63. The upper confidence value is 73. The avergae effectiveness for male is 68%. Since tha value is higher than 50% this proves the alternative hypothesis more. The vaccine gives a positive influence for Males.
 
 
 ### Summary Male
@@ -137,7 +137,7 @@ confIntUpper = 1.78/(1.78 + 1 ) * 100
 confIntUpper = round(confIntUpper)
 ```
 
-The efficacy value for Female is 59%. This value is higher than 50% so the vaccine is effective for females. If the percentage is higher than 50% it proves that the variable iss effective towards the other. 
+The efficacy value for Female is 59%. This value is higher than 50% so the vaccine is effective for females. If the percentage is higher than 50% it proves that the variable iss effective towards the other. The vaccine gives positive influence for Females.
 
 
 ### Summary Female
@@ -193,7 +193,7 @@ confIntUpper = .31/(.31 + 1 ) * 100
 confIntUpper = round(confIntUpper)
 ```
 
-Efficacy value for LGBTQ is 13%. The vaccine is not effective well enough to prevent the virus for this subgroup. Since the value is less than 50, so the alternative hypothesis is accepted while the null is rejected. 
+Efficacy value for LGBTQ is 13%. The vaccine is not effective well enough to prevent the virus for this subgroup. Since the value is less than 50, so the alternative hypothesis is accepted while the null is rejected. The vaccine gives a negative influence for the LGBTQ.
 
 
 ### Summary LGBTQ
@@ -201,6 +201,66 @@ Efficacy value for LGBTQ is 13%. The vaccine is not effective well enough to pre
 From the analysis, those who identify as LGBTQ and take the vaccine do have a higher chance of getting infected still. The placebo seems to work better in this case. Being LGBTQ does affect the effectiveness of the vaccine so the null hypothesis is rejected for the alternative hypothesis. Since all p-values are below 0.05. The effectiveness for LGBTQ is not great. Those in this group should not take the vaccine and instead the placebo. 
 
 
-
 ## DrugUser
+
+$H_0$: There is no relation between drug users & the vaccine.
+
+$H_A$: There is a relation between drug users & the vaccine.
+
+### Graphical Descriptive Results
+
+```{r}
+barchartGC(~infected + treatment, data = DrugUser)
+barchartGC(~infected + treatment, data = DrugUser, type= "percent")
+```
+
+Percentage graph shows the vaccine to be not effective for the DrugUser. The percentage shows that the placebo prevents it more than the actual vaccine. The vaccine has a higher percentage rate at around 85% for getting infected. A Drug User is more likely to get infected.
+
+
+### Numerical Descriptive Results 
+```{r}
+table4 <- xtabs(~infected + treatment, data = DrugUser)
+rowPerc(table4)
+colPerc(table4)
+```
+
+The table shows how many get infected from the Druguser subgroup. 85% get infected with the vaccine. Less of these get infected with the placebo. The DrugUser should not take the vaccine based on the analysis so far. They are better off with the placebo. Seems as if Being a DrugUser does correlate to the vaccine. 
+
+
+### Inferential Descriptive Results 
+```{r}
+chisq.test(table4)
+chisqtestGC(table4)
+fisher.test(table4)
+```
+
+Chi-squared test has a p=value of 0.0000001803. This value is less than 0.05 so the null hypothesis has to be rejected. The GC chi squared tests has a p-value of 0, also less than 0.05. Null hypothesis is rejected in favor of the alternative. Alternative hypothesis is also true due to the odds ratio not being equal to 1. Odds ratio is 0.1775. All p-values are below 0.05 and the fisher exact odds ratio is not equal to 1 so the null hypothesis is rejected. 
+
+
+### Effictiveness and Confidence Intervals
+
+```{r}
+efficDrugUser = .18/(.18 + 1)*100
+efficDrugUser = round(efficDrugUser)
+confIntLower = .08/(.08 + 1) * 100 
+confIntLower = round(confIntLower)
+confIntUpper = .37/(.37 + 1 ) * 100 
+confIntUpper = round(confIntUpper)
+```
+
+The efficacy of DrugUser is 15%. The vaccine is 15% succesful which in this case is not efficient. The value has to be greater than 50% for it to be statistically effective and efficient. The vaccine gives a negative influence for the DrugUser.
+
+### Summary DrugUser
+
+Does being a Drug User correlate to the vaccine? After the analysis this question can be answered as yes. If you are not a Drug User you will have a better chance at preventing the virus with the vaccine. The placebo helps out the Druguser more than the actual vaccine. Being a DrugUser is not good in this situation. DrugUsers should not take the vaccine from the results as they will most likely end up being infected still.
+
+
+# Final Summary 
+
+In this study, we investigated whether or not the preventative vaccine was effective for a particular subgroup. Male, Female, LGBTQ, or DrugUser. We analyzed if the placebo or vaccine worked better for each group individually. After analyzing the results, we can conclude that the vaccine does prevent only certain groups. So being a part of a certain group does affect how the vaccine works. Each group has its own analysis and all the groups reject the null hpothesis in favor of the alternative.
+With Male, the p-values are all below 0.05 so the null hypothesis is rejected. The vaccine does help prevent the virus at a 68% efficacy rate. Vaccine is recommended.
+With Female, the p-values are all below 0.05. The effectiveness rate is at 59% for Female. Vaccine is recommended. 
+With LGBTQ, the p-values are all below 0.05. The placebo was more helpful in this group. Vaccine has an effective rate of 13% which is way below 50%. 
+With DrugUser, the p-values were all below 0.05. The placebo also prevented the virus better than the actual vaccine. The efficacy rate is at 15%. The vaccine is not recommended.
+The Male had the best results with the vaccine. The LGBTQ had the worst effective results. The alternative hypothesis is true because all values are different across each subgroup. For the null hypothesis to have been true, each group would have shown the same exact results no matter what. But that is not the case. Being a part of a group does correlate to the vaccines effectiveness in comparison to the placebo. Placebo worked better for the LGBTQ and DrugUser, while the vaccine worked better for the Male and Female. The vaccine is what was being tested thoroughly though. We wanted to know if the vaccine reacts different with these subgroups and the answer is yes it does react differently. 
 
